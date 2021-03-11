@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Operations Dashboard</title>
+        <link rel="icon" type="image/png" href="finance.png"/>
+        <link href="css/styles.css" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="index.html">NTU Project</a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ml-auto ml-md-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Activity Log</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">General</div>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Social</div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                News Board
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="#">New Post</a>
+                                    <a class="nav-link" href="#">Post Backlog</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Messages
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        New Message
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                </nav>
+                            </div>
+                            <div class="sb-sidenav-menu-heading">Progress</div>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Towards Objectives
+                            </a>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Daily Objectives
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Tester
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Welcome Bill</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        <div class="row">
+                            
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-area mr-1"></i>
+                                        Flights Scheduled By Day
+                                        <i class="fas fa-plus" style="float: right;"></i>
+                                    </div>
+                                    <div class="card-body"><canvas id="newBar" width="100%" height="40"></canvas></div>
+                                    <div class="card-footer small text-muted">Updated today at 09:12 AM</div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar mr-1"></i>
+                                        Asset Availability
+                                        <i class="fas fa-plus" style="float: right;"></i>
+                                    </div>
+                                    <div class="card-body"><canvas id="myChart" width="100%" height="40"></canvas></div>
+                                    <div class="card-footer small text-muted">Updated today at 10:09 AM</div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-glasses mr-1"></i>
+                                        Status Info
+                                        <i class="fas fa-plus" style="float: right;"></i> 
+                                    </div>
+                                    <div class="card-body row">
+                                        <div class="col-xl-4 col-md-6">
+                                            <div class="card bg-secondary text-white mb-4">
+                                                <div class="card-body">Planes in repair: 27</div>
+                                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-md-6">
+                                            <div class="card bg-secondary text-white mb-4">
+                                                <div class="card-body">Average Passengers: 55</div>
+                                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-md-6">
+                                            <div class="card bg-secondary text-white mb-4">
+                                                <div class="card-body">Total Passengers Today: 578</div>
+                                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body row">
+                                        <div class="col-xl-4 col-md-6">
+                                            <div class="card bg-secondary text-white mb-4">
+                                                <div class="card-body">Average runway time: 00:12:35</div>
+                                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-md-6">
+                                            <div class="card bg-secondary text-white mb-4">
+                                                <div class="card-body">How does operations impact other departments?</div>
+                                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-md-6">
+                                            <div class="card bg-secondary text-white mb-4">
+                                                <div class="card-body">Progress towards targets today: 45%</div>
+                                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-footer small text-muted">Updated yesterday at 15:18 PM</div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-check-circle mr-1"></i>
+                                        Staff Availability 
+                                        <i class="fas fa-plus" style="float: right;"></i>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Position</th>
+                                                        <th>Location</th>
+                                                        <th>Age</th>
+                                                        <th>Available</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Position</th>
+                                                        <th>Location</th>
+                                                        <th>Age</th>
+                                                        <th>Available</th>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Tiger Nixon</td>
+                                                        <td>System Architect</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>61</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Garrett Winters</td>
+                                                        <td>Accountant</td>
+                                                        <td>Tokyo</td>
+                                                        <td>63</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ashton Cox</td>
+                                                        <td>Junior Technical Author</td>
+                                                        <td>San Francisco</td>
+                                                        <td>66</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Cedric Kelly</td>
+                                                        <td>Senior Javascript Developer</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>22</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Airi Satou</td>
+                                                        <td>Accountant</td>
+                                                        <td>Tokyo</td>
+                                                        <td>33</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Brielle Williamson</td>
+                                                        <td>Integration Specialist</td>
+                                                        <td>New York</td>
+                                                        <td>61</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Herrod Chandler</td>
+                                                        <td>Sales Assistant</td>
+                                                        <td>San Francisco</td>
+                                                        <td>59</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Rhona Davidson</td>
+                                                        <td>Integration Specialist</td>
+                                                        <td>Tokyo</td>
+                                                        <td>55</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Colleen Hurst</td>
+                                                        <td>Javascript Developer</td>
+                                                        <td>San Francisco</td>
+                                                        <td>39</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Sonya Frost</td>
+                                                        <td>Software Engineer</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>23</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jena Gaines</td>
+                                                        <td>Office Manager</td>
+                                                        <td>London</td>
+                                                        <td>30</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Quinn Flynn</td>
+                                                        <td>Support Lead</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>22</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Charde Marshall</td>
+                                                        <td>Regional Director</td>
+                                                        <td>San Francisco</td>
+                                                        <td>36</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Haley Kennedy</td>
+                                                        <td>Senior Marketing Designer</td>
+                                                        <td>London</td>
+                                                        <td>43</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tatyana Fitzpatrick</td>
+                                                        <td>Regional Director</td>
+                                                        <td>London</td>
+                                                        <td>19</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Michael Silva</td>
+                                                        <td>Marketing Designer</td>
+                                                        <td>London</td>
+                                                        <td>66</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Paul Byrd</td>
+                                                        <td>Chief Financial Officer (CFO)</td>
+                                                        <td>New York</td>
+                                                        <td>64</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Gloria Little</td>
+                                                        <td>Systems Administrator</td>
+                                                        <td>New York</td>
+                                                        <td>59</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Bradley Greer</td>
+                                                        <td>Software Engineer</td>
+                                                        <td>London</td>
+                                                        <td>41</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Dai Rios</td>
+                                                        <td>Personnel Lead</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>35</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jenette Caldwell</td>
+                                                        <td>Development Lead</td>
+                                                        <td>New York</td>
+                                                        <td>30</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Yuri Berry</td>
+                                                        <td>Chief Marketing Officer (CMO)</td>
+                                                        <td>New York</td>
+                                                        <td>40</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Caesar Vance</td>
+                                                        <td>Pre-Sales Support</td>
+                                                        <td>New York</td>
+                                                        <td>21</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Doris Wilder</td>
+                                                        <td>Sales Assistant</td>
+                                                        <td>Sidney</td>
+                                                        <td>23</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Angelica Ramos</td>
+                                                        <td>Chief Executive Officer (CEO)</td>
+                                                        <td>London</td>
+                                                        <td>47</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Gavin Joyce</td>
+                                                        <td>Developer</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>42</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jennifer Chang</td>
+                                                        <td>Regional Director</td>
+                                                        <td>Singapore</td>
+                                                        <td>28</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Brenden Wagner</td>
+                                                        <td>Software Engineer</td>
+                                                        <td>San Francisco</td>
+                                                        <td>28</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Fiona Green</td>
+                                                        <td>Chief Operating Officer (COO)</td>
+                                                        <td>San Francisco</td>
+                                                        <td>48</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Shou Itou</td>
+                                                        <td>Regional Marketing</td>
+                                                        <td>Tokyo</td>
+                                                        <td>20</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Michelle House</td>
+                                                        <td>Integration Specialist</td>
+                                                        <td>Sidney</td>
+                                                        <td>37</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Suki Burks</td>
+                                                        <td>Developer</td>
+                                                        <td>London</td>
+                                                        <td>53</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Prescott Bartlett</td>
+                                                        <td>Technical Author</td>
+                                                        <td>London</td>
+                                                        <td>27</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Gavin Cortez</td>
+                                                        <td>Team Leader</td>
+                                                        <td>San Francisco</td>
+                                                        <td>22</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Martena Mccray</td>
+                                                        <td>Post-Sales support</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>46</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Unity Butler</td>
+                                                        <td>Marketing Designer</td>
+                                                        <td>San Francisco</td>
+                                                        <td>47</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Howard Hatfield</td>
+                                                        <td>Office Manager</td>
+                                                        <td>San Francisco</td>
+                                                        <td>51</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Hope Fuentes</td>
+                                                        <td>Secretary</td>
+                                                        <td>San Francisco</td>
+                                                        <td>41</td>
+                                                        <td>No</td>
+                                                       
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Vivian Harrell</td>
+                                                        <td>Financial Controller</td>
+                                                        <td>San Francisco</td>
+                                                        <td>62</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Timothy Mooney</td>
+                                                        <td>Office Manager</td>
+                                                        <td>London</td>
+                                                        <td>37</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jackson Bradshaw</td>
+                                                        <td>Director</td>
+                                                        <td>New York</td>
+                                                        <td>65</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Olivia Liang</td>
+                                                        <td>Support Engineer</td>
+                                                        <td>Singapore</td>
+                                                        <td>64</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Bruno Nash</td>
+                                                        <td>Software Engineer</td>
+                                                        <td>London</td>
+                                                        <td>38</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Sakura Yamamoto</td>
+                                                        <td>Support Engineer</td>
+                                                        <td>Tokyo</td>
+                                                        <td>37</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Thor Walton</td>
+                                                        <td>Developer</td>
+                                                        <td>New York</td>
+                                                        <td>61</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Finn Camacho</td>
+                                                        <td>Support Engineer</td>
+                                                        <td>San Francisco</td>
+                                                        <td>47</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Serge Baldwin</td>
+                                                        <td>Data Coordinator</td>
+                                                        <td>Singapore</td>
+                                                        <td>64</td>
+                                                        <td>No</td>
+                                                       
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Zenaida Frank</td>
+                                                        <td>Software Engineer</td>
+                                                        <td>New York</td>
+                                                        <td>63</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Zorita Serrano</td>
+                                                        <td>Software Engineer</td>
+                                                        <td>San Francisco</td>
+                                                        <td>56</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jennifer Acosta</td>
+                                                        <td>Junior Javascript Developer</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>43</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Cara Stevens</td>
+                                                        <td>Sales Assistant</td>
+                                                        <td>New York</td>
+                                                        <td>46</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Hermione Butler</td>
+                                                        <td>Regional Director</td>
+                                                        <td>London</td>
+                                                        <td>47</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Lael Greer</td>
+                                                        <td>Systems Administrator</td>
+                                                        <td>London</td>
+                                                        <td>21</td>
+                                                        <td>Yes</td>
+                                                       
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jonas Alexander</td>
+                                                        <td>Developer</td>
+                                                        <td>San Francisco</td>
+                                                        <td>30</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Shad Decker</td>
+                                                        <td>Regional Director</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>51</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Michael Bruce</td>
+                                                        <td>Javascript Developer</td>
+                                                        <td>Singapore</td>
+                                                        <td>29</td>
+                                                        <td>No</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Donna Snider</td>
+                                                        <td>Customer Support</td>
+                                                        <td>New York</td>
+                                                        <td>27</td>
+                                                        <td>Yes</td>
+                                                        
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer small text-muted">Updated today at 11:25 AM</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                DataTable Example
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                </footer>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script src="assets/demo/datatables-demo.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+
+        <script type="text/javascript">
+            var data = {
+                datasets: [{
+                    data: [
+                        11,
+                        16,
+                        12,
+                        5,
+                        14
+                    ],
+                    backgroundColor: [
+                        "#2649bd",
+                        "#374978",
+                        "#001d7d",
+                        "#748de3",
+                        "#36A2EB"
+                    ],
+                    label: 'My dataset' // for legend
+                }],
+                labels: [
+                    "O'Hare",
+                    "LAX",
+                    "SFIA",
+                    "Denver",
+                    "Newark"
+                ]
+            };
+            var ctx = $("#myChart");
+            new Chart(ctx, {
+                data: data,
+                type: 'polarArea'
+            });
+
+            var ctx = document.getElementById('newBar').getContext('2d');
+            var myLineChart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'bar',
+
+                // The data for our dataset
+                data: {
+                    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                    datasets: [{
+                        label: 'Flights',
+                        backgroundColor: 'rgba(38, 73, 189, 0.8)',
+                        borderColor: 'rgb(38, 73, 189)',
+                        data: [75, 30, 67, 90, 120, 140, 95,0]
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+            var ctx = document.getElementById('line').getContext('2d');
+            var myLineChart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                    datasets: [{
+                        label: 'In thousands',
+                        backgroundColor: 'rgba(38, 73, 189, 0.4)',
+                        borderColor: 'rgb(38, 73, 189)',
+                        data: [10, 12, 15, 16, 19, 18, 24]
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+            // For a pie chart
+            var ctx = document.getElementById('PieChart').getContext('2d');
+            var myLineChart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'pie',
+
+                // The data for our dataset
+                data: {
+                    labels: ['IT', 'Operations', 'Customer Service', 'Fiance'],
+                    datasets: [{
+                        label: 'My First dataset',
+                        backgroundColor: [
+                        'rgba(38, 73, 189, 0.9)',
+                        'rgba(55, 70, 120,0.9)',
+                        'rgba(0, 29, 125, 0.9)',
+                        'rgba(116, 141, 227, 0.9)'
+                        ],
+                        
+                        data: [20, 18, 10, 13]
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+            var ctx = document.getElementById('horizontalBar').getContext('2d');
+            var myLineChart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'horizontalBar',
+
+                // The data for our dataset
+                data: {
+                    labels: ['Ticket sales', 'Cargo Flights', 'Investments', 'Equity'],
+                    datasets: [{
+                        label: 'From Last Month (in thousands)',
+                        backgroundColor: 'rgba(55, 70, 120, 0.8)',
+                        borderColor: 'rgb(38, 73, 189)',
+                        data: [60, 40, 15, 25,0]
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+        </script>
+    </body>
+</html>
