@@ -97,45 +97,6 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
-                        <!--
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
                         <div class="row">
                             
                             <div class="col-xl-6">
@@ -143,7 +104,16 @@
                                     <div class="card-header">
                                         <i class="fas fa-chart-area mr-1"></i>
                                         Revenue By Day
-                                        <i class="fas fa-plus" style="float: right;"></i>
+                                        <div class="dropdown">
+                                          <button class="dropbtn"><i class="fas fa-plus" style="float: right;"></i></button>
+                                          <div class="dropdown-content">
+                                            <a href="#">Filter by Time</a>
+                                            <a href="#">Show Profit Margin</a>
+                                            <a href="#">Revenue Maximisation</a>
+                                            <a href="#">Show Forecasted Revenue</a>
+                                            <a href="#">Show Forecasted Profit</a>
+                                          </div>
+                                        </div>
                                     </div>
                                     <div class="card-body"><canvas id="line" width="100%" height="40"></canvas></div>
                                 </div>
@@ -153,7 +123,16 @@
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar mr-1"></i>
                                         Revenue By Month
-                                        <i class="fas fa-plus" style="float: right;"></i>
+                                        <div class="dropdown">
+                                          <button class="dropbtn"><i class="fas fa-plus" style="float: right;"></i></button>
+                                          <div class="dropdown-content">
+                                            <a href="#">Show Profit</a>
+                                            <a href="#">Show Forecasted Profit</a>
+                                            <a href="#">Show Forecasted Revenue</a>
+                                            <a href="#">Region Breakdown</a>
+                                            <a href="#">Cash Streams by Month</a>
+                                          </div>
+                                        </div>
                                     </div>
                                     <div class="card-body"><canvas id="newBar" width="100%" height="40"></canvas></div>
                                 </div>
@@ -163,7 +142,15 @@
                                     <div class="card-header">
                                         <i class="fas fa-chart-pie mr-1"></i>
                                         Expenditure Per Department
-                                        <i class="fas fa-plus" style="float: right;"></i> 
+                                        <div class="dropdown">
+                                          <button class="dropbtn"><i class="fas fa-plus" style="float: right;"></i></button>
+                                          <div class="dropdown-content">
+                                            <a href="#">Filter by Time</a>
+                                            <a href="#">Filter by Expense Class</a>
+                                            <a href="#">Show Budgets</a>
+                                            <a href="#">Forecast Expenditure</a>
+                                          </div>
+                                        </div> 
                                     </div>
                                     <div class="card-body"><canvas id="PieChart" width="100%" height="50"></canvas></div>
                                     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
@@ -174,7 +161,16 @@
                                     <div class="card-header">
                                         <i class="fas fa-chart-pie mr-1"></i>
                                         Cash Streams 
-                                        <i class="fas fa-plus" style="float: right;"></i>
+                                        <div class="dropdown">
+                                          <button class="dropbtn"><i class="fas fa-plus" style="float: right;"></i></button>
+                                          <div class="dropdown-content">
+                                            <a href="#">Filter by Time</a>
+                                            <a href="#">Show Profit Margin</a>
+                                            <a href="#">Revenue Maximisation</a>
+                                            <a href="#">Show Forecasted Revenue</a>
+                                            <a href="#">Show Forecasted Profit</a>
+                                          </div>
+                                        </div>
                                     </div>
                                     <div class="card-body"><canvas id="horizontalBar" width="100%" height="50"></canvas></div>
                                     <div class="card-footer small text-muted">Updated yesterday at 10:35 PM</div>
@@ -778,5 +774,44 @@
 
 
         </script>
+        <style type="text/css">
+            /* Dropdown Button */
+            .dropbtn {
+              background-color: #F7F7F7;
+              font-size: 16px;
+              border: none;
+            }
+
+            /* The container <div> - needed to position the dropdown content */
+            .dropdown {
+              float: right;
+              display: inline-block;
+            }
+
+            /* Dropdown Content (Hidden by Default) */
+            .dropdown-content {
+              display: none;
+              position: absolute;
+              background-color: #f1f1f1;
+              min-width: 160px;
+              box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+              z-index: 1;
+            }
+
+            /* Links inside the dropdown */
+            .dropdown-content a {
+              color: black;
+              padding: 12px 16px;
+              text-decoration: none;
+              display: block;
+            }
+
+            /* Change color of dropdown links on hover */
+            .dropdown-content a:hover {background-color: #ddd;}
+
+            /* Show the dropdown menu on hover */
+            .dropdown:hover .dropdown-content {display: block;}
+            
+        </style>
     </body>
 </html>
